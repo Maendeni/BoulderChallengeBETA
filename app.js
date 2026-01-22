@@ -83,7 +83,7 @@ function renderLeaderboardMatrix(leaderboardRows, challengesAsc, participants, p
 
   const latestId = challengesAsc[challengesAsc.length - 1]?.id;
 
-  // In der kompakten Ansicht wird eine fortlaufende Nummer plus Initiale des Setters
+  // In der kompakten Ansicht wird eine laufende Nummer plus Initiale des Setters
   // statt „KW 07 M“ angezeigt, z.B. „01M“.
   const headerCells = challengesAsc.map((ch, idx) => {
     const seq = String(idx + 1).padStart(2, "0");
@@ -118,7 +118,6 @@ function renderLeaderboardMatrix(leaderboardRows, challengesAsc, participants, p
             <span class="badge">🚫: ${r.openImpossible}</span>
           </div>
         </div>
-
         <div class="playerRow">
           <div class="matrixNameCol"></div>
           <div class="matrixScroll" data-matrix-scroll="1">
@@ -141,7 +140,6 @@ function renderLeaderboardMatrix(leaderboardRows, challengesAsc, participants, p
           </div>
         </div>
       </div>
-
       <div class="matrixBody">
         ${playersHtml}
       </div>
@@ -197,10 +195,8 @@ function wireJumpButtons() {
 
 /* ---------------- Challenge Editing ---------------- */
 
-// Kennzeichnet die aktuell zu bearbeitende Challenge (null = Neuerstellung).
 window.__editingChallengeId = null;
 
-// Lädt eine bestehende Challenge in das Admin‑Formular, um sie zu bearbeiten.
 function startEditChallenge(chId) {
   try {
     const data = window.__DATA__;
@@ -210,7 +206,6 @@ function startEditChallenge(chId) {
     if (!ch) return;
     window.__editingChallengeId = chId;
 
-    // Tiefen Kopie der Ergebnisse, damit Änderungen erst beim Speichern übernommen werden.
     const draft = {
       date: ch.date || "",
       label: ch.label || "",
@@ -220,13 +215,12 @@ function startEditChallenge(chId) {
       notes: ch.notes || "",
       results: JSON.parse(JSON.stringify(ch.results || {}))
     };
-    // Sicherstellen, dass alle Teilnehmer einen Eintrag besitzen
+
     for (const p of participants) {
       if (!draft.results[p.id]) draft.results[p.id] = { status: "open", when: "" };
     }
 
     applyDraftToUi(draft, participants);
-    // Lokalen Entwurf speichern, damit ein Reload den Zustand behält
     saveDraft(draft);
 
     const btnAdd = document.getElementById("admAdd");
@@ -241,7 +235,6 @@ function startEditChallenge(chId) {
   }
 }
 
-// Verkabelt die Edit‑Buttons in den Challenge‑Karten.
 function wireChallengeEdit() {
   const btns = document.querySelectorAll('.challengeEditBtn');
   btns.forEach(btn => {
@@ -348,12 +341,14 @@ function renderChallenges(challenges, participants, pidToName, now) {
       const effectiveImpossible = computeEffectiveImpossible(ch, status, now);
       const icon = statusToIcon(status, when, effectiveImpossible);
       const isSetter = (ch.setBy === p.id);
-      const extraClass = isSetter ? " setterIcon" : "";
+      // Icon erhält setterIcon, Chip erhält setterChip, wenn der Teilnehmer die Challenge gesetzt hat
+      const statusClass = isSetter ? " setterIcon" : "";
+      const chipClass = isSetter ? "personChip setterChip" : "personChip";
 
       return `
-        <div class="personChip">
+        <div class="${chipClass}">
           <div class="personName">${safeText(p.name)}</div>
-          <div class="personStatus${extraClass}" aria-label="Status">${icon}</div>
+          <div class="personStatus${statusClass}" aria-label="Status">${icon}</div>
         </div>
       `;
     }).join("");
@@ -368,7 +363,6 @@ function renderChallenges(challenges, participants, pidToName, now) {
   }).join("");
 
   el.innerHTML = cards || `<p class="muted">Noch keine Challenges erfasst.</p>`;
-  // Edit‑Buttons verbinden
   wireChallengeEdit();
 }
 
@@ -466,7 +460,6 @@ function wireAdminHandlers(participants) {
         return;
       }
 
-      // Challenge aus dem Entwurf bauen
       const updatedChallenge = {
         id: draft.date,
         date: draft.date,
@@ -481,24 +474,19 @@ function wireAdminHandlers(participants) {
       data.challenges = data.challenges ?? [];
 
       if (window.__editingChallengeId) {
-        // Bei bestehender Challenge: alten Eintrag entfernen und neuen anlegen
         const idx = data.challenges.findIndex(c => c.id === window.__editingChallengeId);
         if (idx !== -1) {
           data.challenges.splice(idx, 1);
         }
         data.challenges.unshift(updatedChallenge);
-        // Bearbeitungsmodus zurücksetzen
         window.__editingChallengeId = null;
         btnAdd.textContent = "Challenge hinzufügen";
       } else {
-        // Neue Challenge anlegen
         data.challenges.unshift(updatedChallenge);
       }
 
-      // Daten lokal sichern
       localStorage.setItem("kletterliga_data_local", JSON.stringify(data));
 
-      // Neuen Entwurf vorbereiten
       const week = getIsoWeek(draft.date);
       const nextLabel = week ? `KW ${String(week).padStart(2, "0")}` : "";
       const fresh = {
@@ -566,7 +554,6 @@ function applyDraftToUi(draft, participants) {
     `;
   }).join("");
 
-  // Umschalten: — -> ✅ -> ❌ -> —
   box.querySelectorAll(".resultBtn").forEach(btn => {
     btn.addEventListener("click", () => {
       const pid = btn.getAttribute("data-pid");
