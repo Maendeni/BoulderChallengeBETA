@@ -83,8 +83,7 @@ function renderLeaderboardMatrix(leaderboardRows, challengesAsc, participants, p
 
   const latestId = challengesAsc[challengesAsc.length - 1]?.id;
 
-  // In der kompakten Ansicht wird eine laufende Nummer plus Initiale des Setters
-  // statt „KW 07 M“ angezeigt, z.B. „01M“.
+  // In der kompakten Ansicht wird eine laufende Nummer plus Initiale des Setters angezeigt, z. B. „01M“.
   const headerCells = challengesAsc.map((ch, idx) => {
     const seq = String(idx + 1).padStart(2, "0");
     const initial = getSetterInitial(ch, pidToName);
@@ -195,6 +194,7 @@ function wireJumpButtons() {
 
 /* ---------------- Challenge Editing ---------------- */
 
+// aktuell bearbeitete Challenge (null = neu)
 window.__editingChallengeId = null;
 
 function startEditChallenge(chId) {
@@ -205,7 +205,6 @@ function startEditChallenge(chId) {
     const ch = data.challenges.find(c => c.id === chId);
     if (!ch) return;
     window.__editingChallengeId = chId;
-
     const draft = {
       date: ch.date || "",
       label: ch.label || "",
@@ -215,21 +214,16 @@ function startEditChallenge(chId) {
       notes: ch.notes || "",
       results: JSON.parse(JSON.stringify(ch.results || {}))
     };
-
+    // sicherstellen, dass jeder Teilnehmer einen Eintrag hat
     for (const p of participants) {
       if (!draft.results[p.id]) draft.results[p.id] = { status: "open", when: "" };
     }
-
     applyDraftToUi(draft, participants);
     saveDraft(draft);
-
     const btnAdd = document.getElementById("admAdd");
     if (btnAdd) btnAdd.textContent = "Challenge aktualisieren";
-
     const details = document.querySelector('.adminDetails');
-    if (details && !details.open) {
-      details.open = true;
-    }
+    if (details && !details.open) details.open = true;
   } catch (err) {
     console.error(err);
   }
@@ -304,7 +298,6 @@ function computeAndRenderAll(data) {
 function renderChallenges(challenges, participants, pidToName, now) {
   const el = document.getElementById("challenges");
 
-  // Abbildung von Challenge‑ID auf ihre Reihenfolge (aufsteigend nach Datum)
   const asc = [...challenges].sort(byOldestFirst);
   const seqMap = {};
   asc.forEach((c, idx) => {
@@ -315,10 +308,8 @@ function renderChallenges(challenges, participants, pidToName, now) {
     const setByName = pidToName[ch.setBy] ?? ch.setBy ?? "—";
     const removed = ch.removedFrom ? `Route entfernt ab: ${fmtDate(ch.removedFrom)}` : "Route entfernt ab: —";
 
-    // kleiner Bearbeiten‑Button
     const editBtn = `<button class="challengeEditBtn" data-chid="${safeText(ch.id)}" type="button" title="Bearbeiten">✏️</button>`;
 
-    // laufende Nummer plus Initiale des Setters
     const seq = String(seqMap[ch.id]).padStart(2, "0");
     const initial = getSetterInitial(ch, pidToName);
     const seqLabel = `${seq}${initial}`;
@@ -341,7 +332,6 @@ function renderChallenges(challenges, participants, pidToName, now) {
       const effectiveImpossible = computeEffectiveImpossible(ch, status, now);
       const icon = statusToIcon(status, when, effectiveImpossible);
       const isSetter = (ch.setBy === p.id);
-      // Icon erhält setterIcon, Chip erhält setterChip, wenn der Teilnehmer die Challenge gesetzt hat
       const statusClass = isSetter ? " setterIcon" : "";
       const chipClass = isSetter ? "personChip setterChip" : "personChip";
 
@@ -397,7 +387,6 @@ function renderAdmin(data, participants) {
 
   applyDraftToUi(draft, participants);
 
-  // Handler nur einmal binden (sonst doppelte Popups)
   if (!window.__adminWired) {
     wireAdminHandlers(participants);
     window.__adminWired = true;
@@ -431,7 +420,6 @@ function wireAdminHandlers(participants) {
     el.addEventListener("change", syncDraft);
   });
 
-  // Datum geändert -> Label automatisch setzen (KW)
   if (elDate && elLabel) {
     elDate.addEventListener("change", () => {
       const week = getIsoWeek(elDate.value);
@@ -475,9 +463,7 @@ function wireAdminHandlers(participants) {
 
       if (window.__editingChallengeId) {
         const idx = data.challenges.findIndex(c => c.id === window.__editingChallengeId);
-        if (idx !== -1) {
-          data.challenges.splice(idx, 1);
-        }
+        if (idx !== -1) data.challenges.splice(idx, 1);
         data.challenges.unshift(updatedChallenge);
         window.__editingChallengeId = null;
         btnAdd.textContent = "Challenge hinzufügen";
@@ -554,18 +540,35 @@ function applyDraftToUi(draft, participants) {
     `;
   }).join("");
 
+  // Klickzyklus: offen → Erfolg → Erfolg + nachgeholt → Misserfolg → Misserfolg + nachgeholt → offen
   box.querySelectorAll(".resultBtn").forEach(btn => {
     btn.addEventListener("click", () => {
       const pid = btn.getAttribute("data-pid");
       const d = readDraftFromUi(participants);
 
       const cur = d.results[pid] ?? { status: "open", when: "" };
-      const next = (cur.status === "open") ? "success"
-                 : (cur.status === "success") ? "fail"
-                 : "open";
+      const status = cur.status ?? "open";
+      const when = cur.when ?? "";
+      let nextStatus, nextWhen;
 
-      d.results[pid] = { status: next, when: cur.when || "" };
-      if (next === "open") d.results[pid].when = "";
+      if (status === "open") {
+        nextStatus = "success";
+        nextWhen = "";
+      } else if (status === "success" && when !== "makeup") {
+        nextStatus = "success";
+        nextWhen = "makeup";
+      } else if (status === "success" && when === "makeup") {
+        nextStatus = "fail";
+        nextWhen = "";
+      } else if (status === "fail" && when !== "makeup") {
+        nextStatus = "fail";
+        nextWhen = "makeup";
+      } else {
+        nextStatus = "open";
+        nextWhen = "";
+      }
+
+      d.results[pid] = { status: nextStatus, when: nextWhen };
 
       saveDraft(d);
       applyDraftToUi(d, participants);
@@ -626,7 +629,6 @@ async function main() {
   const res = await fetch("data.json", { cache: "no-store" });
   let data = await res.json();
 
-  // lokale Arbeitskopie verwenden (damit Änderungen nach Refresh bleiben)
   const local = localStorage.getItem("kletterliga_data_local");
   if (local) {
     try { data = JSON.parse(local); } catch {}
