@@ -134,7 +134,7 @@ function renderLeaderboardMatrix(leaderboardRows, challengesAsc, participants, p
   el.innerHTML = `
     <div class="matrix">
       <div class="matrixHeaderRow">
-        <div class="matrixNameCol">Teilnehmer</div>
+        <div class="matrixNameCol">Wer</div>
         <div class="matrixScroll" data-matrix-scroll="1">
           <div class="weekRow">
             ${headerCells}
@@ -311,6 +311,13 @@ function computeAndRenderAll(data) {
 function renderChallenges(challenges, participants, pidToName, now) {
   const el = document.getElementById("challenges");
 
+  // Abbildung von Challenge‑ID auf ihre Reihenfolge (aufsteigend nach Datum)
+  const asc = [...challenges].sort(byOldestFirst);
+  const seqMap = {};
+  asc.forEach((c, idx) => {
+    seqMap[c.id] = idx + 1;
+  });
+
   const cards = challenges.map(ch => {
     const setByName = pidToName[ch.setBy] ?? ch.setBy ?? "—";
     const removed = ch.removedFrom ? `Route entfernt ab: ${fmtDate(ch.removedFrom)}` : "Route entfernt ab: —";
@@ -318,9 +325,14 @@ function renderChallenges(challenges, participants, pidToName, now) {
     // kleiner Bearbeiten‑Button
     const editBtn = `<button class="challengeEditBtn" data-chid="${safeText(ch.id)}" type="button" title="Bearbeiten">✏️</button>`;
 
+    // laufende Nummer plus Initiale des Setters
+    const seq = String(seqMap[ch.id]).padStart(2, "0");
+    const initial = getSetterInitial(ch, pidToName);
+    const seqLabel = `${seq}${initial}`;
+
     const top = `
       <div>
-        <div class="challengeTitle">${safeText(ch.label ?? "")} · ${fmtDate(ch.date)}</div>
+        <div class="challengeTitle">${safeText(seqLabel)} · ${safeText(ch.label ?? "")} · ${fmtDate(ch.date)}</div>
         <div class="challengeMeta">Route: ${safeText(ch.route ?? "—")}</div>
         <div class="challengeMeta">Definiert von: ${safeText(setByName)}</div>
         <div class="challengeMeta">${removed}</div>

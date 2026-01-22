@@ -113,9 +113,9 @@ code{
 
 .matrixNameCol{
   /* narrower name column to reduce wasted space */
-  width: 88px;
-  min-width: 88px;
-  flex: 0 0 88px;
+  width: 74px;
+  min-width: 74px;
+  flex: 0 0 74px;
   color: var(--muted);
   font-size:12px;
   display:flex;
@@ -406,7 +406,7 @@ code{
 @media (max-width: 520px){
   .card{ padding:10px; }
   /* further tighten columns on very small screens */
-  .matrixNameCol{ width: 70px; min-width:70px; flex: 0 0 70px; }
+  .matrixNameCol{ width: 60px; min-width:60px; flex: 0 0 60px; }
   .weekCell{ min-width: 42px; font-size:10px; }
   .iconCell{ min-width: 42px; height: 30px; font-size:13px; }
   .playerBlock{ padding:9px; }
