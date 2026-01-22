@@ -1,0 +1,415 @@
+:root{
+  --bg:#0b0f17;
+  --card:#111827;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+  --line:#1f2937;
+  --accent:#38bdf8;
+}
+
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; background:var(--bg); color:var(--text); font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+
+.container{ width:min(860px, 92vw); margin:0 auto; }
+.header{ padding:18px 0 8px; }
+.footer{ padding:18px 0 28px; }
+
+h1{ font-size:22px; margin:0; }
+h2{ font-size:16px; margin:0; }
+
+.muted{ color:var(--muted); margin:6px 0 0; font-size:13px; }
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:12px;
+  margin:12px 0;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+}
+
+.cardHeader{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-bottom:10px;
+}
+
+.cardHeaderRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.legendDetails summary{
+  cursor:pointer;
+  color: var(--muted);
+  font-size: 12px;
+  user-select:none;
+}
+
+.legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 10px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:3px 8px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  color:var(--muted);
+  font-size:11px;
+  white-space:nowrap;
+  line-height:1.2;
+}
+
+.badgeAccent{
+  border-color: rgba(56, 189, 248, 0.35);
+  color: var(--text);
+}
+
+code{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.95em;
+}
+
+/* ---- Jump Buttons ---- */
+.matrixJump{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.btnSmall{
+  padding:7px 9px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,0.02);
+  color: var(--text);
+  cursor:pointer;
+  font-size:12px;
+}
+.btnSmall:active{ transform: translateY(1px); }
+
+/* ---- Ranglisten-Matrix ---- */
+.matrix{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.matrixHeaderRow{
+  display:flex;
+  gap:10px;
+  align-items:stretch;
+}
+
+.matrixNameCol{
+  /* narrower name column to reduce wasted space */
+  width: 88px;
+  min-width: 88px;
+  flex: 0 0 88px;
+  color: var(--muted);
+  font-size:12px;
+  display:flex;
+  align-items:center;
+  padding-left:2px;
+}
+
+.matrixScroll{
+  overflow-x:auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  border-radius:12px;
+}
+
+.weekRow, .iconRow{
+  display:flex;
+  /* reduced gap between columns to fit more on mobile */
+  gap:4px;
+  padding:4px 2px;
+}
+
+.weekCell{
+  /* narrower cells for compact view */
+  min-width: 48px;
+  height: 26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--line);
+  border-radius:12px;
+  font-size:11px;
+  color: var(--muted);
+  background: rgba(0,0,0,0.18);
+  white-space:nowrap;
+}
+
+.weekCellLatest{
+  border-color: rgba(56, 189, 248, 0.45);
+  color: var(--text);
+}
+
+.playerBlock{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:10px;
+  background: rgba(255,255,255,0.02);
+}
+
+.playerNameRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.playerName{
+  font-weight:700;
+  font-size:14px;
+}
+
+.playerBadges{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  gap:6px;
+}
+
+.playerRow{
+  display:flex;
+  /* tighter gap between name column and result matrix */
+  gap:8px;
+  margin-top:8px;
+}
+
+.iconCell{
+  /* match width with header cells */
+  min-width: 48px;
+  height: 32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background: rgba(0,0,0,0.18);
+  font-size:14px;
+}
+
+/* Highlight result icons when the participant defined the challenge */
+.iconCell.setterIcon{
+  color: var(--accent);
+  border-color: rgba(56, 189, 248, 0.45);
+  font-weight:600;
+}
+
+/* Highlight the status icon inside person chips for the challenge setter */
+.personStatus.setterIcon{
+  color: var(--accent);
+  font-weight:600;
+}
+
+/* Provide relative positioning for challenge cards so the edit button can be absolutely positioned */
+.challengeCard{
+  position: relative;
+}
+
+/* Styling for the small edit button on challenge cards */
+.challengeEditBtn{
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size:14px;
+  cursor: pointer;
+  padding: 2px;
+}
+.challengeEditBtn:hover{
+  color: var(--accent);
+}
+
+/* ---- Challenges ---- */
+.challengeCard{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+  margin:10px 0;
+  background: rgba(255,255,255,0.02);
+}
+
+.challengeTitle{
+  font-weight:700;
+  font-size:14px;
+}
+
+.challengeMeta{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+}
+
+.grid5{
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap:8px;
+  margin-top:10px;
+}
+
+@media (max-width: 420px){
+  .grid5{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.personChip{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:9px 10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  background: rgba(0,0,0,0.18);
+}
+
+.personName{
+  font-size:13px;
+  color:var(--text);
+  font-weight:600;
+}
+
+.personStatus{
+  font-size:16px;
+}
+
+/* ---- Admin ---- */
+.adminDetails summary{
+  cursor:pointer;
+  color: var(--text);
+  font-size: 14px;
+  user-select:none;
+}
+
+.adminGrid{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap:10px;
+}
+
+@media (max-width: 520px){
+  .adminGrid{ grid-template-columns: 1fr; }
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.fieldWide{
+  grid-column: 1 / -1;
+}
+
+.field span{
+  font-size:12px;
+  color: var(--muted);
+}
+
+.field input, .field select{
+  width:100%;
+  padding:10px 10px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background: rgba(0,0,0,0.2);
+  color: var(--text);
+  outline: none;
+}
+
+.adminBlock{
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid var(--line);
+}
+
+.adminBlockTitle{
+  font-size:12px;
+  color: var(--muted);
+  margin-bottom:10px;
+}
+
+.adminResults{
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap:8px;
+}
+
+@media (max-width: 520px){
+  .adminResults{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.resultBtn{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px;
+  background: rgba(255,255,255,0.02);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  color: var(--text);
+}
+
+.resultBtn small{ color: var(--muted); font-weight:600; }
+
+.adminActions{
+  margin-top:12px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.btn, .btnPrimary{
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,0.02);
+  color: var(--text);
+  cursor:pointer;
+}
+
+.btnPrimary{ border-color: rgba(56, 189, 248, 0.45); }
+.btn:active, .btnPrimary:active{ transform: translateY(1px); }
+
+.adminActions .btn, .adminActions .btnPrimary{ flex: 1 1 auto; }
+
+.adminTextarea{
+  width:100%;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background: rgba(0,0,0,0.25);
+  color: var(--text);
+  padding:10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+}
+
+/* ---- Extra mobile compaction ---- */
+@media (max-width: 520px){
+  .card{ padding:10px; }
+  /* further tighten columns on very small screens */
+  .matrixNameCol{ width: 70px; min-width:70px; flex: 0 0 70px; }
+  .weekCell{ min-width: 42px; font-size:10px; }
+  .iconCell{ min-width: 42px; height: 30px; font-size:13px; }
+  .playerBlock{ padding:9px; }
+  .playerName{ font-size:13px; }
+  .badge{ font-size:10.5px; padding:3px 7px; }
+}

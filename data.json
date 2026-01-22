@@ -1,0 +1,403 @@
+{
+  "season": {
+    "name": "Boulder-Challenge 25/26",
+    "start": "2025-09-17",
+    "end": "2026-06-30"
+  },
+  "participants": [
+    {
+      "id": "Dan",
+      "name": "Dan"
+    },
+    {
+      "id": "Geo",
+      "name": "Geo"
+    },
+    {
+      "id": "Flo",
+      "name": "Flo"
+    },
+    {
+      "id": "Mar",
+      "name": "Mar"
+    },
+    {
+      "id": "Sab",
+      "name": "Sab"
+    }
+  ],
+  "challenges": [
+    {
+      "id": "2026-01-14",
+      "date": "2026-01-14",
+      "label": "KW 03",
+      "route": "Gelbe 8 im Eggä bim Iigang",
+      "setBy": "Mar",
+      "removedFrom": null,
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "fail",
+          "when": ""
+        },
+        "Geo": {
+          "status": "open",
+          "when": ""
+        },
+        "Flo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Mar": {
+          "status": "fail",
+          "when": ""
+        },
+        "Sab": {
+          "status": "open",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2026-01-07",
+      "date": "2026-01-07",
+      "label": "KW 02",
+      "route": "Gelbe 8 neuer Bereich",
+      "setBy": "Flo",
+      "removedFrom": null,
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "fail",
+          "when": ""
+        },
+        "Geo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Flo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Mar": {
+          "status": "fail",
+          "when": ""
+        },
+        "Sab": {
+          "status": "open",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2025-12-17",
+      "date": "2025-12-17",
+      "label": "KW 51",
+      "route": "Graue 8 im Überhang",
+      "setBy": "Dan",
+      "removedFrom": null,
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "fail",
+          "when": ""
+        },
+        "Geo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Flo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Mar": {
+          "status": "fail",
+          "when": ""
+        },
+        "Sab": {
+          "status": "open",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2025-12-10",
+      "date": "2025-12-10",
+      "label": "KW 50",
+      "route": "Gelbe 7 im Eggä bim Iigang",
+      "setBy": "Mar",
+      "removedFrom": "2026-01-06",
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "success",
+          "when": ""
+        },
+        "Geo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Flo": {
+          "status": "success",
+          "when": ""
+        },
+        "Mar": {
+          "status": "success",
+          "when": ""
+        },
+        "Sab": {
+          "status": "open",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2025-12-03",
+      "date": "2025-12-03",
+      "label": "KW 49",
+      "route": "7 weiss - Würfel neuer Bereich",
+      "setBy": "Flo",
+      "removedFrom": null,
+      "notes": "Dan nachgeholt",
+      "results": {
+        "Dan": {
+          "status": "success",
+          "when": ""
+        },
+        "Geo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Flo": {
+          "status": "success",
+          "when": ""
+        },
+        "Mar": {
+          "status": "fail",
+          "when": ""
+        },
+        "Sab": {
+          "status": "fail",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2025-11-12",
+      "date": "2025-11-12",
+      "label": "KW 46",
+      "route": "Queerung nach rechts (neuer Bereich)",
+      "setBy": "Geo",
+      "removedFrom": null,
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "success",
+          "when": ""
+        },
+        "Geo": {
+          "status": "success",
+          "when": ""
+        },
+        "Flo": {
+          "status": "success",
+          "when": ""
+        },
+        "Mar": {
+          "status": "success",
+          "when": ""
+        },
+        "Sab": {
+          "status": "fail",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2025-11-05",
+      "date": "2025-11-05",
+      "label": "KW 45",
+      "route": "Gelbe 8 (Kleingriffig)",
+      "setBy": "Dan",
+      "removedFrom": null,
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "success",
+          "when": ""
+        },
+        "Geo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Flo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Mar": {
+          "status": "success",
+          "when": ""
+        },
+        "Sab": {
+          "status": "fail",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2025-10-28",
+      "date": "2025-10-28",
+      "label": "KW 44",
+      "route": "6 - Rot! Queerung nach Rechts, Schluss schwierig",
+      "setBy": "Sab",
+      "removedFrom": null,
+      "notes": "Gelbe Tritte verboten..",
+      "results": {
+        "Dan": {
+          "status": "fail",
+          "when": ""
+        },
+        "Geo": {
+          "status": "success",
+          "when": ""
+        },
+        "Flo": {
+          "status": "success",
+          "when": ""
+        },
+        "Mar": {
+          "status": "success",
+          "when": ""
+        },
+        "Sab": {
+          "status": "success",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2025-10-21",
+      "date": "2025-10-21",
+      "label": "KW 43",
+      "route": "Irgendöpis",
+      "setBy": "Mar",
+      "removedFrom": null,
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "success",
+          "when": ""
+        },
+        "Geo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Flo": {
+          "status": "success",
+          "when": ""
+        },
+        "Mar": {
+          "status": "success",
+          "when": ""
+        },
+        "Sab": {
+          "status": "fail",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2025-10-14",
+      "date": "2025-10-14",
+      "label": "Nr 3",
+      "route": "Weiss 8 - Jump-Start nicht machbar",
+      "setBy": "Flo",
+      "removedFrom": null,
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "fail",
+          "when": "live"
+        },
+        "Geo": {
+          "status": "fail",
+          "when": "live"
+        },
+        "Flo": {
+          "status": "fail",
+          "when": "live"
+        },
+        "Mar": {
+          "status": "fail",
+          "when": "live"
+        },
+        "Sab": {
+          "status": "fail",
+          "when": "live"
+        }
+      }
+    },
+    {
+      "id": "2025-09-16",
+      "date": "2025-09-16",
+      "label": "Nr. 1",
+      "route": "...",
+      "setBy": "Dan",
+      "removedFrom": null,
+      "notes": "...",
+      "results": {
+        "Dan": {
+          "status": "success",
+          "when": "live"
+        },
+        "Geo": {
+          "status": "fail",
+          "when": "live"
+        },
+        "Flo": {
+          "status": "fail",
+          "when": "live"
+        },
+        "Mar": {
+          "status": "success",
+          "when": "live"
+        },
+        "Sab": {
+          "status": "fail",
+          "when": "live"
+        }
+      }
+    },
+    {
+      "id": "2025-09-24",
+      "date": "2025-09-24",
+      "label": "Nr. 2",
+      "route": "...",
+      "setBy": "Geo",
+      "removedFrom": null,
+      "notes": "...",
+      "results": {
+        "Dan": {
+          "status": "fail",
+          "when": "live"
+        },
+        "Geo": {
+          "status": "success",
+          "when": "live"
+        },
+        "Flo": {
+          "status": "success",
+          "when": "live"
+        },
+        "Mar": {
+          "status": "success",
+          "when": "live"
+        },
+        "Sab": {
+          "status": "fail",
+          "when": "live"
+        }
+      }
+    }
+  ]
+}
