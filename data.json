@@ -28,12 +28,291 @@
   ],
   "challenges": [
     {
+      "id": "2026-03-25",
+      "date": "2026-03-25",
+      "label": "KW 13",
+      "route": "Violette 8 - Queergang gleich am Anfang der neuen Halle (mega schwierig!)",
+      "setBy": "Flo",
+      "removedFrom": null,
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "fail",
+          "when": ""
+        },
+        "Geo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Flo": {
+          "status": "success",
+          "when": ""
+        },
+        "Mar": {
+          "status": "open",
+          "when": ""
+        },
+        "Sab": {
+          "status": "fail",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2026-03-11",
+      "date": "2026-03-11",
+      "label": "KW 11",
+      "route": "Orange 8 queergang links nähr uehi, fingrig",
+      "setBy": "Dan",
+      "removedFrom": "2026-03-15",
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "success",
+          "when": ""
+        },
+        "Geo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Flo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Mar": {
+          "status": "open",
+          "when": ""
+        },
+        "Sab": {
+          "status": "fail",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2026-03-18",
+      "date": "2026-03-18",
+      "label": "KW 12",
+      "route": "Rote 7 neue Halle",
+      "setBy": "Mar",
+      "removedFrom": null,
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "success",
+          "when": ""
+        },
+        "Geo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Flo": {
+          "status": "open",
+          "when": ""
+        },
+        "Mar": {
+          "status": "success",
+          "when": ""
+        },
+        "Sab": {
+          "status": "open",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2026-03-04",
+      "date": "2026-03-04",
+      "label": "KW 10",
+      "route": "Weisse 8 - Grifflöcher verboten!!",
+      "setBy": "Geo",
+      "removedFrom": null,
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "success",
+          "when": ""
+        },
+        "Geo": {
+          "status": "success",
+          "when": ""
+        },
+        "Flo": {
+          "status": "success",
+          "when": ""
+        },
+        "Mar": {
+          "status": "fail",
+          "when": ""
+        },
+        "Sab": {
+          "status": "fail",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2026-02-04",
+      "date": "2026-02-04",
+      "label": "KW 06",
+      "route": "Gelbe 7 kleine Griffe neue Halle",
+      "setBy": "Dan",
+      "removedFrom": "2026-02-17",
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "success",
+          "when": ""
+        },
+        "Geo": {
+          "status": "success",
+          "when": ""
+        },
+        "Flo": {
+          "status": "success",
+          "when": ""
+        },
+        "Mar": {
+          "status": "success",
+          "when": "makeup"
+        },
+        "Sab": {
+          "status": "open",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2026-02-11",
+      "date": "2026-02-11",
+      "label": "KW 07",
+      "route": "Schwarze 8 - jump nach rechts neue Halle",
+      "setBy": "Flo",
+      "removedFrom": "2026-02-17",
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "fail",
+          "when": ""
+        },
+        "Geo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Flo": {
+          "status": "success",
+          "when": ""
+        },
+        "Mar": {
+          "status": "fail",
+          "when": ""
+        },
+        "Sab": {
+          "status": "open",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2026-02-18",
+      "date": "2026-02-18",
+      "label": "KW 08",
+      "route": "Grüne 5 mit Bimano-Open Kleber --> 6",
+      "setBy": "Sab",
+      "removedFrom": null,
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "success",
+          "when": ""
+        },
+        "Geo": {
+          "status": "success",
+          "when": "makeup"
+        },
+        "Flo": {
+          "status": "success",
+          "when": "makeup"
+        },
+        "Mar": {
+          "status": "success",
+          "when": ""
+        },
+        "Sab": {
+          "status": "fail",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2026-02-25",
+      "date": "2026-02-25",
+      "label": "KW 09",
+      "route": "Blaue 7 - Queergangtanz neue Halle",
+      "setBy": "Mar",
+      "removedFrom": null,
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "success",
+          "when": ""
+        },
+        "Geo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Flo": {
+          "status": "success",
+          "when": ""
+        },
+        "Mar": {
+          "status": "success",
+          "when": ""
+        },
+        "Sab": {
+          "status": "fail",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2026-01-28",
+      "date": "2026-01-28",
+      "label": "KW 05",
+      "route": "Blaue 9 - Quergang im neuen Bereich rechts",
+      "setBy": "Geo",
+      "removedFrom": null,
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "fail",
+          "when": ""
+        },
+        "Geo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Flo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Mar": {
+          "status": "fail",
+          "when": ""
+        },
+        "Sab": {
+          "status": "fail",
+          "when": ""
+        }
+      }
+    },
+    {
       "id": "2026-01-21",
       "date": "2026-01-21",
       "label": "KW 04",
       "route": "Gelbe 5 mit schwierigem Start",
       "setBy": "Sab",
-      "removedFrom": null,
+      "removedFrom": "2026-01-23",
       "notes": "",
       "results": {
         "Dan": {
@@ -64,7 +343,7 @@
       "label": "KW 03",
       "route": "Gelbe 8 im Eggä bim Iigang",
       "setBy": "Mar",
-      "removedFrom": null,
+      "removedFrom": "2026-01-23",
       "notes": "",
       "results": {
         "Dan": {
@@ -73,37 +352,6 @@
         },
         "Geo": {
           "status": "open",
-          "when": ""
-        },
-        "Flo": {
-          "status": "fail",
-          "when": ""
-        },
-        "Mar": {
-          "status": "fail",
-          "when": ""
-        },
-        "Sab": {
-          "status": "open",
-          "when": ""
-        }
-      }
-    },
-    {
-      "id": "2026-01-07",
-      "date": "2026-01-07",
-      "label": "KW 02",
-      "route": "Gelbe 8 neuer Bereich",
-      "setBy": "Flo",
-      "removedFrom": null,
-      "notes": "",
-      "results": {
-        "Dan": {
-          "status": "fail",
-          "when": ""
-        },
-        "Geo": {
-          "status": "fail",
           "when": ""
         },
         "Flo": {
@@ -146,7 +394,38 @@
           "when": ""
         },
         "Sab": {
-          "status": "open",
+          "status": "fail",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2026-01-07",
+      "date": "2026-01-07",
+      "label": "KW 02",
+      "route": "Gelbe 8 neuer Bereich",
+      "setBy": "Flo",
+      "removedFrom": null,
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "fail",
+          "when": ""
+        },
+        "Geo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Flo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Mar": {
+          "status": "fail",
+          "when": ""
+        },
+        "Sab": {
+          "status": "fail",
           "when": ""
         }
       }
