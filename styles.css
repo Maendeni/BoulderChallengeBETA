@@ -98,7 +98,114 @@ code{
 }
 .btnSmall:active{ transform: translateY(1px); }
 
-/* ---- Ranglisten-Matrix ---- */
+/* ---- Leaderboard Zeilen ---- */
+.lbList{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lbRow{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.02);
+}
+
+.lbRow.lbRowFirst{
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.lbRank{
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  width: 16px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.lbAvatar{
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.lbName{
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  flex: 1;
+  min-width: 0;
+}
+
+.lbBarWrap{
+  flex: 2;
+  height: 5px;
+  background: var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+  min-width: 40px;
+}
+
+.lbBar{
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: width 0.4s ease;
+}
+
+.lbPts{
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 36px;
+  text-align: right;
+}
+
+.lbMeta{
+  font-size: 11px;
+  color: var(--muted);
+  min-width: 36px;
+  text-align: right;
+}
+
+/* ---- Matrix (ausklappbar) ---- */
+.matrixToggle{
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--muted);
+  font-size: 12px;
+  padding: 4px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.matrixToggle:hover{ color: var(--text); border-color: rgba(56,189,248,0.3); }
+.matrixToggle .mtArrow{ display: inline-block; transition: transform 0.2s; }
+.matrixToggle[aria-expanded="true"] .mtArrow{ transform: rotate(180deg); }
+
+.matrixWrap{
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+.matrixWrap[hidden]{ display: none; }
+
 .matrix{
   display:flex;
   flex-direction:column;
@@ -112,7 +219,6 @@ code{
 }
 
 .matrixNameCol{
-  /* narrower name column to reduce wasted space */
   width: 74px;
   min-width: 74px;
   flex: 0 0 74px;
@@ -132,13 +238,11 @@ code{
 
 .weekRow, .iconRow{
   display:flex;
-  /* reduced gap between columns to fit more on mobile */
   gap:4px;
   padding:4px 2px;
 }
 
 .weekCell{
-  /* narrower cells for compact view */
   min-width: 48px;
   height: 26px;
   display:flex;
@@ -185,13 +289,11 @@ code{
 
 .playerRow{
   display:flex;
-  /* tighter gap between name column and result matrix */
   gap:8px;
   margin-top:8px;
 }
 
 .iconCell{
-  /* match width with header cells */
   min-width: 48px;
   height: 32px;
   display:flex;
@@ -216,9 +318,90 @@ code{
   font-weight:600;
 }
 
-/* Provide relative positioning for challenge cards so the edit button can be absolutely positioned */
+/* ---- Provide relative positioning for challenge cards so the edit button can be absolutely positioned ---- */
 .challengeCard{
   position: relative;
+}
+
+/* ---- Challenge Tags ---- */
+.chTags{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 7px;
+}
+
+.chTag{
+  font-size: 11px;
+  color: var(--muted);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.chTagAccent{
+  color: #fbbf24;
+  background: rgba(251,191,36,0.08);
+  border-color: rgba(251,191,36,0.3);
+}
+
+/* ---- Result chips (neue kompakte Version) ---- */
+.resultChips{
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.resultChip{
+  flex: 1;
+  border-radius: 10px;
+  padding: 6px 4px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: rgba(0,0,0,0.18);
+  border: 1px solid var(--line);
+}
+
+.resultChip.rcSuccess{
+  border-color: rgba(34,197,94,0.35);
+  background: rgba(34,197,94,0.07);
+}
+
+.resultChip.rcFail{
+  border-color: rgba(239,68,68,0.3);
+  background: rgba(239,68,68,0.06);
+}
+
+.resultChip.rcOpen{
+  opacity: 0.55;
+}
+
+.resultChip.rcImpossible{
+  border-color: rgba(156,163,175,0.3);
+  opacity: 0.5;
+}
+
+/* Setter-Highlight in den neuen Chips */
+.resultChip.rcSetter{
+  border-color: rgba(56,189,248,0.45);
+}
+.resultChip.rcSetter .rcIcon{
+  color: var(--accent);
+}
+
+.rcIcon{
+  font-size: 14px;
+  line-height: 1;
+}
+
+.rcName{
+  font-size: 10px;
+  color: var(--muted);
+  font-weight: 500;
 }
 
 /* Styling for the small edit button on challenge cards */
@@ -241,58 +424,41 @@ code{
 .challengeCard{
   border:1px solid var(--line);
   border-radius:14px;
-  padding:12px;
+  padding:12px 14px;
   margin:10px 0;
   background: rgba(255,255,255,0.02);
 }
 
+.challengeHeader{
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.challengeKw{
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(56,189,248,0.1);
+  border: 1px solid rgba(56,189,248,0.25);
+  border-radius: 7px;
+  padding: 3px 8px;
+  white-space: nowrap;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+
 .challengeTitle{
   font-weight:700;
-  font-size:14px;
+  font-size:15px;
+  color: var(--text);
+  line-height: 1.3;
 }
 
 .challengeMeta{
   color:var(--muted);
   font-size:12px;
-  margin-top:4px;
-}
-
-.grid5{
-  display:grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap:8px;
-  margin-top:10px;
-}
-
-@media (max-width: 420px){
-  .grid5{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-.personChip{
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:9px 10px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  background: rgba(0,0,0,0.18);
-}
-
-.personName{
-  font-size:13px;
-  color:var(--text);
-  font-weight:600;
-}
-
-.personStatus{
-  font-size:16px;
-}
-
-/* Highlight the entire chip when the participant defined the challenge */
-.personChip.setterChip{
-  /* Use accent color on the border similar to matrix highlight */
-  border-color: rgba(56, 189, 248, 0.45);
+  margin-top:3px;
 }
 
 /* ---- Admin ---- */
@@ -418,4 +584,10 @@ code{
   .playerBlock{ padding:9px; }
   .playerName{ font-size:13px; }
   .badge{ font-size:10.5px; padding:3px 7px; }
+  .lbBarWrap{ display: none; }
+  .lbMeta{ display: none; }
+  .resultChips{ gap: 3px; }
+  .resultChip{ padding: 5px 2px 4px; }
+  .rcIcon{ font-size: 13px; }
+  .rcName{ font-size: 9px; }
 }
