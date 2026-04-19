@@ -80,24 +80,6 @@ code{
   font-size: 0.95em;
 }
 
-/* ---- Jump Buttons ---- */
-.matrixJump{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.btnSmall{
-  padding:7px 9px;
-  border-radius:12px;
-  border:1px solid var(--line);
-  background: rgba(255,255,255,0.02);
-  color: var(--text);
-  cursor:pointer;
-  font-size:12px;
-}
-.btnSmall:active{ transform: translateY(1px); }
-
 /* ---- Leaderboard Zeilen ---- */
 .lbList{
   display: flex;
@@ -175,11 +157,15 @@ code{
   text-align: right;
 }
 
-.lbMeta{
+.lbDefined{
   font-size: 11px;
+  font-weight: 600;
   color: var(--muted);
-  min-width: 36px;
-  text-align: right;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 9px;
+  white-space: nowrap;
 }
 
 /* ---- Matrix (ausklappbar) ---- */
@@ -305,11 +291,13 @@ code{
   font-size:14px;
 }
 
-/* Highlight result icons when the participant defined the challenge */
+/* Highlight result icons when the participant defined the challenge - KRÄFTIGER */
 .iconCell.setterIcon{
   color: var(--accent);
-  border-color: rgba(56, 189, 248, 0.45);
-  font-weight:600;
+  border: 2px solid var(--accent);
+  background: rgba(56, 189, 248, 0.15);
+  font-weight: 700;
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.2);
 }
 
 /* Highlight the status icon inside person chips for the challenge setter */
@@ -347,7 +335,7 @@ code{
   border-color: rgba(251,191,36,0.3);
 }
 
-/* ---- Result chips (neue kompakte Version) ---- */
+/* ---- Result chips (kompakt, einheitlicher Stil) ---- */
 .resultChips{
   display: flex;
   gap: 5px;
@@ -366,31 +354,26 @@ code{
   border: 1px solid var(--line);
 }
 
-.resultChip.rcSuccess{
-  border-color: rgba(34,197,94,0.35);
-  background: rgba(34,197,94,0.07);
-}
-
-.resultChip.rcFail{
-  border-color: rgba(239,68,68,0.3);
-  background: rgba(239,68,68,0.06);
-}
-
 .resultChip.rcOpen{
   opacity: 0.55;
 }
 
 .resultChip.rcImpossible{
-  border-color: rgba(156,163,175,0.3);
   opacity: 0.5;
 }
 
-/* Setter-Highlight in den neuen Chips */
+/* Setter-Highlight: deutlich sichtbar */
 .resultChip.rcSetter{
-  border-color: rgba(56,189,248,0.45);
+  border: 2px solid var(--accent);
+  background: rgba(56, 189, 248, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.2);
 }
 .resultChip.rcSetter .rcIcon{
   color: var(--accent);
+}
+.resultChip.rcSetter .rcName{
+  color: var(--text);
+  font-weight: 600;
 }
 
 .rcIcon{
@@ -407,33 +390,49 @@ code{
 /* Styling for the small edit button on challenge cards */
 .challengeEditBtn{
   position: absolute;
-  top: 6px;
-  right: 6px;
-  background: none;
-  border: none;
+  top: 4px;
+  right: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--line);
+  border-radius: 8px;
   color: var(--muted);
-  font-size:14px;
+  font-size: 13px;
   cursor: pointer;
-  padding: 2px;
+  padding: 3px 7px;
+  line-height: 1;
 }
 .challengeEditBtn:hover{
   color: var(--accent);
+  border-color: rgba(56, 189, 248, 0.4);
+  background: rgba(56, 189, 248, 0.08);
 }
 
-/* ---- Challenges ---- */
+/* ---- Challenges (einklappbar) ---- */
 .challengeCard{
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:12px 14px;
-  margin:10px 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  margin: 8px 0;
   background: rgba(255,255,255,0.02);
+  overflow: hidden;
 }
 
-.challengeHeader{
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
+.challengeCard[open]{
+  background: rgba(255,255,255,0.03);
+  border-color: rgba(56, 189, 248, 0.2);
 }
+
+.challengeSummary{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+.challengeSummary::-webkit-details-marker{ display: none; }
+.challengeSummary::marker{ content: ""; }
+.challengeSummary:hover{ background: rgba(255,255,255,0.02); }
 
 .challengeKw{
   font-size: 11px;
@@ -444,21 +443,69 @@ code{
   border-radius: 7px;
   padding: 3px 8px;
   white-space: nowrap;
-  margin-top: 1px;
   flex-shrink: 0;
 }
 
+.challengeSummaryBody{
+  flex: 1;
+  min-width: 0;
+}
+
 .challengeTitle{
-  font-weight:700;
-  font-size:15px;
+  font-weight: 700;
+  font-size: 15px;
   color: var(--text);
   line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.challengeCard[open] .challengeTitle{
+  white-space: normal;
 }
 
 .challengeMeta{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:3px;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+/* Mini-Dots in der Summary (eingeklappt) */
+.chMiniDots{
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.challengeCard[open] .chMiniDots{ display: none; }
+
+.chMiniDot{
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 1px solid transparent;
+}
+.chMiniDot.dotSuccess{ background: #22c55e; }
+.chMiniDot.dotFail{ background: #ef4444; }
+.chMiniDot.dotOpen{ background: var(--line); }
+.chMiniDot.dotImpossible{ background: var(--muted); opacity: 0.4; }
+.chMiniDot.dotSetter{
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.6);
+  margin: 0 2px;
+}
+
+.chChevron{
+  color: var(--muted);
+  font-size: 14px;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.challengeCard[open] .chChevron{ transform: rotate(180deg); }
+
+.challengeBody{
+  padding: 0 14px 12px;
+  position: relative;
 }
 
 /* ---- Admin ---- */
@@ -585,7 +632,7 @@ code{
   .playerName{ font-size:13px; }
   .badge{ font-size:10.5px; padding:3px 7px; }
   .lbBarWrap{ display: none; }
-  .lbMeta{ display: none; }
+  .lbDefined{ font-size: 10px; padding: 2px 7px; }
   .resultChips{ gap: 3px; }
   .resultChip{ padding: 5px 2px 4px; }
   .rcIcon{ font-size: 13px; }

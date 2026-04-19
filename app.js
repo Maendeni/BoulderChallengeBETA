@@ -109,7 +109,7 @@ function renderLeaderboardMatrix(leaderboardRows, challengesAsc, participants, p
         <div class="lbName">${safeText(r.name)}</div>
         <div class="lbBarWrap"><div class="lbBar" style="width:${pct}%;background:${barColor}"></div></div>
         <div class="lbPts" style="color:${barColor}">${r.points} P</div>
-        <div class="lbMeta">${r.defined} def.</div>
+        <div class="lbDefined" title="Definierte Challenges">${r.defined} def.</div>
       </div>
     `;
   }).join("");
@@ -162,15 +162,11 @@ function renderLeaderboardMatrix(leaderboardRows, challengesAsc, participants, p
   el.innerHTML = `
     <div class="lbList">${rowsHtml}</div>
 
-    <div style="margin-top:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+    <div style="margin-top:12px;">
       <button class="matrixToggle" id="matrixToggleBtn" type="button" aria-expanded="false" aria-controls="matrixWrap">
         <span>Detail-Matrix</span>
         <span class="mtArrow">▾</span>
       </button>
-      <div class="matrixJump" id="matrixJumpBtns" style="display:none;">
-        <button id="jumpStart" class="btnSmall" type="button">⏪ Anfang</button>
-        <button id="jumpLatest" class="btnSmall" type="button">⏩ Neueste</button>
-      </div>
     </div>
 
     <div class="matrixWrap" id="matrixWrap" hidden>
@@ -190,16 +186,13 @@ function renderLeaderboardMatrix(leaderboardRows, challengesAsc, participants, p
   // Toggle-Button verdrahten
   const toggleBtn = document.getElementById("matrixToggleBtn");
   const matrixWrap = document.getElementById("matrixWrap");
-  const jumpBtns = document.getElementById("matrixJumpBtns");
 
   toggleBtn.addEventListener("click", () => {
     const isOpen = !matrixWrap.hidden;
     matrixWrap.hidden = isOpen;
     toggleBtn.setAttribute("aria-expanded", String(!isOpen));
-    jumpBtns.style.display = isOpen ? "none" : "flex";
     if (!isOpen) {
       wireMatrixScrollSync();
-      wireJumpButtons();
     }
   });
 }
@@ -221,28 +214,6 @@ function wireMatrixScrollSync() {
       syncing = false;
     }, { passive: true });
   });
-}
-
-function wireJumpButtons() {
-  // Re-wire each time (buttons are re-created on render)
-  const btnStart = document.getElementById("jumpStart");
-  const btnLatest = document.getElementById("jumpLatest");
-
-  if (btnStart) {
-    btnStart.addEventListener("click", () => {
-      const els = window.__matrixScrollEls ?? [];
-      els.forEach(el => { el.scrollLeft = 0; });
-    });
-  }
-
-  if (btnLatest) {
-    btnLatest.addEventListener("click", () => {
-      const els = window.__matrixScrollEls ?? [];
-      const ref = els[0];
-      const max = ref ? (ref.scrollWidth - ref.clientWidth) : 0;
-      els.forEach(el => { el.scrollLeft = max; });
-    });
-  }
 }
 
 /* ---------------- Challenge Editing ---------------- */
@@ -357,10 +328,10 @@ function renderChallenges(challenges, participants, pidToName, now) {
     seqMap[c.id] = idx + 1;
   });
 
-  const cards = challenges.map(ch => {
+  const cards = challenges.map((ch, idx) => {
     const setByName = pidToName[ch.setBy] ?? ch.setBy ?? "—";
     const seq = String(seqMap[ch.id]).padStart(2, "0");
-    const kwLabel = ch.label ? safeText(ch.label) : `Nr. ${seq}`;
+    const kwLabel = ch.label ? safeText(ch.label) : `Nr. ${seq}`;
 
     // Datum DE-formatiert
     const [dy, dm, dd] = (ch.date || "").split("-");
@@ -379,7 +350,7 @@ function renderChallenges(challenges, participants, pidToName, now) {
 
     const editBtn = `<button class="challengeEditBtn" data-chid="${safeText(ch.id)}" type="button" title="Bearbeiten">✏️</button>`;
 
-    // Ergebnis-Chips
+    // Ergebnis-Chips (Detail-Ansicht)
     const results = ch.results ?? {};
     const chips = participants.map(p => {
       const r = results[p.id] ?? { status: "open", when: "" };
@@ -390,11 +361,9 @@ function renderChallenges(challenges, participants, pidToName, now) {
       const isSetter = (ch.setBy === p.id);
 
       let chipCls = "resultChip";
-      if (effectiveImpossible) chipCls += " rcImpossible";
-      else if (status === "success") chipCls += " rcSuccess";
-      else if (status === "fail") chipCls += " rcFail";
-      else chipCls += " rcOpen";
       if (isSetter) chipCls += " rcSetter";
+      if (effectiveImpossible) chipCls += " rcImpossible";
+      else if (status === "open") chipCls += " rcOpen";
 
       return `
         <div class="${chipCls}" title="${isSetter ? safeText(p.name) + " hat diese Challenge definiert" : safeText(p.name)}">
@@ -404,19 +373,41 @@ function renderChallenges(challenges, participants, pidToName, now) {
       `;
     }).join("");
 
+    // Mini-Punkte für die eingeklappte Ansicht
+    const miniDots = participants.map(p => {
+      const r = results[p.id] ?? { status: "open", when: "" };
+      const status = r.status ?? "open";
+      const effectiveImpossible = computeEffectiveImpossible(ch, status, now);
+      const isSetter = (ch.setBy === p.id);
+      let dotCls = "chMiniDot";
+      if (effectiveImpossible) dotCls += " dotImpossible";
+      else if (status === "success") dotCls += " dotSuccess";
+      else if (status === "fail") dotCls += " dotFail";
+      else dotCls += " dotOpen";
+      if (isSetter) dotCls += " dotSetter";
+      return `<span class="${dotCls}" title="${safeText(p.name)}"></span>`;
+    }).join("");
+
+    // Neueste Challenge (idx 0 in challengesDesc) bleibt offen
+    const isOpen = (idx === 0) ? " open" : "";
+
     return `
-      <div class="challengeCard" data-chid="${safeText(ch.id)}">
-        ${editBtn}
-        <div class="challengeHeader">
+      <details class="challengeCard" data-chid="${safeText(ch.id)}"${isOpen}>
+        <summary class="challengeSummary">
           <div class="challengeKw">${kwLabel}</div>
-          <div>
+          <div class="challengeSummaryBody">
             <div class="challengeTitle">${safeText(ch.route ?? "—")}</div>
             <div class="challengeMeta">von ${safeText(setByName)} · ${dateFmt}</div>
           </div>
+          <div class="chMiniDots" aria-hidden="true">${miniDots}</div>
+          <span class="chChevron" aria-hidden="true">▾</span>
+        </summary>
+        <div class="challengeBody">
+          ${editBtn}
+          ${tagsHtml}
+          <div class="resultChips">${chips}</div>
         </div>
-        ${tagsHtml}
-        <div class="resultChips">${chips}</div>
-      </div>
+      </details>
     `;
   }).join("");
 
