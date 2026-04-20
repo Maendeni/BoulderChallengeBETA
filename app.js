@@ -77,13 +77,13 @@ function getSetterInitial(ch, pidToName) {
 // aktuellen Teilnehmer gewählt (sky/violet/pink/cyan/amber – harmonieren
 // gut miteinander und bleiben auf dunklem Grund lesbar).
 const PERSON_COLOR_PALETTE = [
-  "#38bdf8", // sky
-  "#a78bfa", // violet
-  "#f472b6", // pink
-  "#22d3ee", // cyan
-  "#fbbf24", // amber
-  "#4ade80", // green (Reserve)
-  "#fb7185", // rose (Reserve)
+  "#60a5fa", // Dan   – Blau (ruhig, klar)
+  "#a78bfa", // Geo   – Violett
+  "#f472b6", // Flo   – Pink
+  "#34d399", // Mar   – Emerald/Mintgrün (neu, klar getrennt von Blau)
+  "#fbbf24", // Sab   – Amber
+  "#fb7185", // Reserve – Rose
+  "#2dd4bf", // Reserve – Teal
 ];
 
 function buildPersonColorMap(participants) {
