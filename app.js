@@ -77,13 +77,13 @@ function getSetterInitial(ch, pidToName) {
 // aktuellen Teilnehmer gewählt (sky/violet/pink/cyan/amber – harmonieren
 // gut miteinander und bleiben auf dunklem Grund lesbar).
 const PERSON_COLOR_PALETTE = [
-  "#60a5fa", // Dan   – Blau (ruhig, klar)
-  "#a78bfa", // Geo   – Violett (bleibt)
-  "#f472b6", // Flo   – Pink (bleibt)
-  "#34d399", // Mar   – Emerald/Mintgrün (neu, klar getrennt von Blau)
-  "#fbbf24", // Sab   – Amber (bleibt)
-  "#fb7185", // Reserve – Rose
-  "#2dd4bf", // Reserve – Teal
+  "#38bdf8", // sky
+  "#a78bfa", // violet
+  "#f472b6", // pink
+  "#22d3ee", // cyan
+  "#fbbf24", // amber
+  "#4ade80", // green (Reserve)
+  "#fb7185", // rose (Reserve)
 ];
 
 function buildPersonColorMap(participants) {
@@ -182,7 +182,13 @@ function renderLeaderboardMatrix(leaderboardRows, challengesAsc, participants, p
     </div>
 
     <div class="matrixWrap" id="matrixWrap" hidden>
-      <p class="muted" style="margin-bottom:8px;font-size:11px;">Blau markierte Zellen = Teilnehmer hat diese Challenge definiert</p>
+      <details class="legendDetails">
+        <summary>Legende</summary>
+        <div class="legend">
+          <span>✅ 1P</span><span>❌ 0P</span><span>⏳ nachgeholt</span><span>— offen</span><span>🚫 nicht möglich</span>
+          <span class="legendSetter"><span class="legendSwatch"></span> hat Challenge definiert</span>
+        </div>
+      </details>
       <div class="matrix">
         <div class="matrixHeaderRow">
           <div class="matrixNameCol">Wer</div>
@@ -364,27 +370,25 @@ function renderSeasonHeader(data, allChallenges, leaderboardRows, now) {
   const title = data.season?.name ?? "Boulder-Challenge";
   document.getElementById("seasonTitle").textContent = title;
 
-  const start = data.season?.start;
-  const end = data.season?.end;
+  const totalChallenges = data.season?.totalChallenges ?? 0;
+  const doneChallenges = allChallenges.length;
+  const openChallenges = Math.max(0, totalChallenges - doneChallenges);
 
   const latestDate = [...allChallenges].sort(byNewestFirst)[0]?.date ?? null;
   const seasonMeta = document.getElementById("seasonMeta");
 
-  // Fortschritt in Saison
-  let pct = 0;
-  let weekInfo = "";
-  if (start && end) {
-    const s = parseISODate(start);
-    const e = parseISODate(end);
-    const total = Math.max(1, Math.round((e - s) / 86400000 / 7));
-    const passed = Math.max(0, Math.min(total, Math.round((now - s) / 86400000 / 7)));
-    pct = Math.round((passed / total) * 100);
-    weekInfo = `Woche ${passed} von ${total}`;
-  }
+  // Fortschrittsbalken: durchgeführte / geplante Challenges
+  const pct = totalChallenges > 0
+    ? Math.min(100, Math.round((doneChallenges / totalChallenges) * 100))
+    : 0;
+
+  const progressLabel = totalChallenges > 0
+    ? `${doneChallenges} von ${totalChallenges} Challenges`
+    : `${doneChallenges} Challenges`;
 
   seasonMeta.textContent = latestDate
-    ? (weekInfo ? `${weekInfo} · Letzte Challenge ${fmtDateDE(latestDate)}` : `Stand: ${fmtDateDE(latestDate)}`)
-    : (weekInfo || "Stand: –");
+    ? `${progressLabel} · Letzte ${fmtDateDE(latestDate)}`
+    : progressLabel;
 
   const fill = document.getElementById("seasonBarFill");
   if (fill) fill.style.width = `${pct}%`;
@@ -392,16 +396,13 @@ function renderSeasonHeader(data, allChallenges, leaderboardRows, now) {
   // Stat-Strip
   const stripEl = document.getElementById("statStrip");
   if (stripEl) {
-    const totalChallenges = allChallenges.length;
     const leader = leaderboardRows[0];
     const leaderName = leader?.name ?? "–";
     const leaderPts = leader?.points ?? 0;
-    const kw = latestDate ? getIsoWeek(latestDate) : null;
-    const kwLabel = kw ? `KW ${String(kw).padStart(2, "0")}` : "–";
 
     stripEl.innerHTML = `
       <div class="statCell">
-        <div class="statV statAccent">${totalChallenges}</div>
+        <div class="statV statAccent">${doneChallenges}</div>
         <div class="statL">Challenges</div>
       </div>
       <div class="statCell">
@@ -409,8 +410,8 @@ function renderSeasonHeader(data, allChallenges, leaderboardRows, now) {
         <div class="statL">Spitze</div>
       </div>
       <div class="statCell">
-        <div class="statV">${kwLabel}</div>
-        <div class="statL">Aktuell</div>
+        <div class="statV">${openChallenges}</div>
+        <div class="statL">Offen</div>
       </div>
     `;
   }
