@@ -1,9 +1,9 @@
 {
-"season": {
-  "name": "Boulder-Challenge 25/26",
-  "start": "2025-09-17",
-  "totalChallenges": 30
-}
+  "season": {
+    "name": "Boulder-Challenge 25/26",
+    "start": "2025-09-17",
+    "totalChallenges": 30
+  },
   "participants": [
     {
       "id": "Dan",
@@ -28,68 +28,6 @@
   ],
   "challenges": [
     {
-      "id": "2026-04-15",
-      "date": "2026-04-15",
-      "label": "KW 16",
-      "route": "Grüne 8 hinten am Würfel in der alten Halle",
-      "setBy": "Dan",
-      "removedFrom": null,
-      "notes": "Am Schluss kleingriffig",
-      "results": {
-        "Dan": {
-          "status": "success",
-          "when": ""
-        },
-        "Geo": {
-          "status": "open",
-          "when": ""
-        },
-        "Flo": {
-          "status": "fail",
-          "when": ""
-        },
-        "Mar": {
-          "status": "success",
-          "when": ""
-        },
-        "Sab": {
-          "status": "fail",
-          "when": ""
-        }
-      }
-    },
-    {
-      "id": "2026-04-01",
-      "date": "2026-04-01",
-      "label": "KW 14",
-      "route": "Schwarze 6 - Wand, wo Boss jewils uf falsche Farbe pöiseled :D",
-      "setBy": "Sab",
-      "removedFrom": null,
-      "notes": "",
-      "results": {
-        "Dan": {
-          "status": "success",
-          "when": ""
-        },
-        "Geo": {
-          "status": "success",
-          "when": ""
-        },
-        "Flo": {
-          "status": "success",
-          "when": ""
-        },
-        "Mar": {
-          "status": "success",
-          "when": ""
-        },
-        "Sab": {
-          "status": "success",
-          "when": ""
-        }
-      }
-    },
-    {
       "id": "2026-03-25",
       "date": "2026-03-25",
       "label": "KW 13",
@@ -111,38 +49,7 @@
           "when": ""
         },
         "Mar": {
-          "status": "fail",
-          "when": ""
-        },
-        "Sab": {
-          "status": "fail",
-          "when": ""
-        }
-      }
-    },
-    {
-      "id": "2026-03-18",
-      "date": "2026-03-18",
-      "label": "KW 12",
-      "route": "Rote 7 neue Halle",
-      "setBy": "Mar",
-      "removedFrom": null,
-      "notes": "",
-      "results": {
-        "Dan": {
-          "status": "success",
-          "when": ""
-        },
-        "Geo": {
-          "status": "fail",
-          "when": ""
-        },
-        "Flo": {
-          "status": "fail",
-          "when": ""
-        },
-        "Mar": {
-          "status": "success",
+          "status": "open",
           "when": ""
         },
         "Sab": {
@@ -178,6 +85,37 @@
         },
         "Sab": {
           "status": "fail",
+          "when": ""
+        }
+      }
+    },
+    {
+      "id": "2026-03-18",
+      "date": "2026-03-18",
+      "label": "KW 12",
+      "route": "Rote 7 neue Halle",
+      "setBy": "Mar",
+      "removedFrom": null,
+      "notes": "",
+      "results": {
+        "Dan": {
+          "status": "success",
+          "when": ""
+        },
+        "Geo": {
+          "status": "fail",
+          "when": ""
+        },
+        "Flo": {
+          "status": "open",
+          "when": ""
+        },
+        "Mar": {
+          "status": "success",
+          "when": ""
+        },
+        "Sab": {
+          "status": "open",
           "when": ""
         }
       }
