@@ -77,13 +77,13 @@ function getSetterInitial(ch, pidToName) {
 // aktuellen Teilnehmer gewählt (sky/violet/pink/cyan/amber – harmonieren
 // gut miteinander und bleiben auf dunklem Grund lesbar).
 const PERSON_COLOR_PALETTE = [
-  "#60a5fa", // Dan   – Blau (ruhig, klar)
-  "#a78bfa", // Geo   – Violett
-  "#f472b6", // Flo   – Pink
-  "#34d399", // Mar   – Emerald/Mintgrün (neu, klar getrennt von Blau)
-  "#fbbf24", // Sab   – Amber
-  "#fb7185", // Reserve – Rose
-  "#2dd4bf", // Reserve – Teal
+  "#38bdf8", // sky
+  "#a78bfa", // violet
+  "#f472b6", // pink
+  "#22d3ee", // cyan
+  "#fbbf24", // amber
+  "#4ade80", // green (Reserve)
+  "#fb7185", // rose (Reserve)
 ];
 
 function buildPersonColorMap(participants) {
@@ -396,9 +396,10 @@ function renderSeasonHeader(data, allChallenges, leaderboardRows, now) {
   // Stat-Strip
   const stripEl = document.getElementById("statStrip");
   if (stripEl) {
-    const leader = leaderboardRows[0];
-    const leaderName = leader?.name ?? "–";
-    const leaderPts = leader?.points ?? 0;
+    const avgPoints = leaderboardRows.length > 0
+      ? (leaderboardRows.reduce((s, r) => s + r.points, 0) / leaderboardRows.length)
+      : 0;
+    const avgLabel = `\u00d8 ${avgPoints.toFixed(1)}P`;
 
     stripEl.innerHTML = `
       <div class="statCell">
@@ -406,8 +407,8 @@ function renderSeasonHeader(data, allChallenges, leaderboardRows, now) {
         <div class="statL">Challenges</div>
       </div>
       <div class="statCell">
-        <div class="statV" title="${safeText(leaderName)}">${safeText(leaderName)} · ${leaderPts}P</div>
-        <div class="statL">Spitze</div>
+        <div class="statV">${avgLabel}</div>
+        <div class="statL">Schnitt</div>
       </div>
       <div class="statCell">
         <div class="statV">${openChallenges}</div>
